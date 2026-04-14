@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>官方接入商 · 资产合规准入中心</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            background-image: 
+                radial-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(145deg, #0c0c12 0%, #0a0a10 100%);
+            background-size: 40px 40px, 100%;
+            font-family: "Inter", "Microsoft YaHei", sans-serif;
+            color: #f0f0f5;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .main-container {
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 标题区域 */
+        .hero {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 7vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff8e7 0%, #ffd966 50%, #f5c542 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            margin-bottom: 0.8rem;
+        }
+
+        .hero .subhead {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #b9b9d0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem 1.5rem;
+        }
+
+        /* 顶部横排标签 */
+        .domain-tagline {
+            margin-top: 1.8rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ffdf99;
+            background: #121216;
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 0.9rem 3rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .domain-tagline span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* 卡片网格 */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: rgba(18, 18, 26, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 1.5rem;
+            padding: 2.5rem 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #ffd966;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(255, 215, 0, 0.1) inset;
+        }
+
+        /* 推荐标志 */
+        .card.popular {
+            border-color: rgba(255, 215, 0, 0.5);
+            background: linear-gradient(180deg, rgba(30,25,10,0.9) 0%, rgba(18,18,26,0.9) 100%);
+            transform: scale(1.02);
+        }
+        .card.popular:hover {
+            transform: scale(1.02) translateY(-8px);
+        }
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f5b342, #d9901a);
+            color: #000;
+            font-weight: bold;
+            padding: 0.4rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(245, 179, 66, 0.4);
+            white-space: nowrap;
+        }
+
+        /* 卡片内部排版 */
+        .card-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+        .card-title { font-size: 1.6rem; color: #fff; font-weight: bold; margin-bottom: 0.5rem; }
+        .card-desc { color: #8f8fb1; font-size: 1rem; }
+        
+        .features-list { list-style: none; flex-grow: 1; margin-bottom: 2.5rem; }
+        .features-list li {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: #dcdce6;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+        .features-list li i { color: #ffd966; margin-top: 0.3rem; font-size: 0.9rem; }
+        .features-list li .highlight { color: #ffdf99; font-weight: bold; }
+
+        /* 卡片复制按钮 */
+        .action-btn {
+            background: transparent;
+            border: 1px solid #ffd966;
+            color: #ffd966;
+            width: 100%;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            font-family: inherit;
+        }
+        .action-btn:hover, .card.popular .action-btn {
+            background: #ffd966;
+            color: #0a0a0f;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        /* 提示弹窗 */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #ffd966;
+            color: #000;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px 20px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+
+        /* 特色横幅 */
+        .feature-banner {
+            background: linear-gradient(95deg, #1f1f2e, #15151f);
+            border-left: 5px solid #ffd966;
+            border-radius: 60px;
+            padding: 1.2rem 2rem;
+            margin: 2.5rem 0 3rem 0;
+            text-align: center;
+            box-shadow: 0 10px 30px -10px #000000cc, 0 0 0 1px rgba(255, 200, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-banner p {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #e5e5f0;
+        }
+
+        .feature-banner .highlight {
+            color: #ffd966;
+            font-weight: 700;
+            text-shadow: 0 0 8px #ffb700;
+        }
+
+        /* 交易支持区域 */
+        .support-section {
+            background: rgba(12, 12, 20, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 4rem;
+            padding: 2.5rem 2.8rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 30px 40px -20px black;
+        }
+
+        .support-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem 2.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .support-badge {
+            font-size: 1.2rem;
+            font-weight: 500;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #ffefcf;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .support-badge i {
+            color: #ffd966;
+            font-size: 1.3rem;
+        }
+
+        .cta-button-container {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        /* 大底部按钮 */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(145deg, #f5b342, #d9901a);
+            color: #0c0c10;
+            font-weight: 800;
+            font-size: 1.5rem;
+            padding: 1rem 3rem;
+            border-radius: 80px;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            box-shadow: 0 10px 25px -5px rgba(255, 183, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.3);
+            transition: all 0.2s ease;
+            border: 1px solid #ffea9e;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(145deg, #ffc75f, #f0a820);
+            box-shadow: 0 20px 30px -5px #f0b843, 0 0 0 3px #fff2c0;
+            color: #000;
+            transform: scale(1.02);
+        }
+
+        /* 修改后的页脚胶囊：保证PC端一行显示 */
+        .footer-pills {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-pill {
+            background: #121216;
+            padding: 1.2rem 2.5rem;
+            border-radius: 60px;
+            color: #b0b0d0;
+            font-size: 1.05rem;
+            text-align: center;
+            max-width: 1200px; /* 增大最大宽度限制 */
+            width: fit-content; /* 自适应内容宽度 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            white-space: nowrap; /* 强制电脑端不换行 */
+        }
+
+        .footer-pill.dashed {
+            border: 1px dashed rgba(255, 215, 0, 0.3);
+        }
+
+        /* 微小点缀 — 顶部光晕 */
+        .glow-spot {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(255, 200, 50, 0.08) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-spot2 {
+            bottom: -10%;
+            right: -5%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, #ffd96615, transparent 70%);
+            filter: blur(90px);
+            position: fixed;
+            z-index: -1;
+        }
+
+        /* 手机优化 */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .domain-tagline { flex-direction: column; gap: 1rem; padding: 1.5rem; border-radius: 20px; }
+            .support-section { padding: 2rem 1.2rem; }
+            .cta-button { font-size: 1.2rem; padding: 0.8rem 1.5rem; width: 100%; }
+            .feature-banner p { font-size: 1.1rem; }
+            .card.popular { transform: scale(1); }
+            .card.popular:hover { transform: translateY(-8px); }
+            .footer-pill { padding: 1rem 1.5rem; font-size: 0.95rem; border-radius: 20px; white-space: normal; line-height: 1.6; } /* 手机端恢复换行，防止撑破屏幕 */
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-spot"></div>
+    <div class="glow-spot2"></div>
+
+    <div class="main-container">
+        <div class="hero">
+            <h1>官方接入商 · 资产合规准入中心</h1>
+            <div class="subhead">
+                <span>✨ 摒弃传统低效代办，为您提供长效、合规、极速的 ICP/APP 准入方案</span>
+            </div>
+            
+            <div class="domain-tagline">
+                <span><i class="fas fa-shield-alt" style="color:#f5c542;"></i> 底层防注销机制</span>
+                <span><i class="fas fa-link" style="color:#f5c542;"></i> 核心管局直连</span>
+                <span><i class="fas fa-handshake" style="color:#f5c542;"></i> 一手资源无差价</span>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">域名 ICP 备案</div>
+                    <div class="card-desc">全托管代办 · 包通过</div>
+                </div>
+                <ul class="features-list">
+                    <li><i class="fas fa-bolt"></i> <span><span class="highlight">专家一对一</span>专属审资料</span></li>
+                    <li><i class="fas fa-check"></i> <span>官方标准流程录入提交</span></li>
+                    <li><i class="fas fa-check"></i> <span>底层数据防掉机制护航</span></li>
+                    <li><i class="fas fa-check"></i> <span>存量资产长效稳定运行</span></li>
+                </ul>
+                <button class="action-btn" onclick="copyContact('79108024')">
+                    <span><i class="fab fa-qq" style="margin-right: 5px;"></i> 获取专属报价</span>
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+
+            <div class="card popular">
+                <div class="popular-badge">🏆 核心主推 · 极速下发</div>
+                <div class="card-header">
+                    <div class="card-title">APP/小程序备案</div>
+                    <div class="card-desc">各大应用市场 · 绿通接入</div>
+                </div>
+                <ul class="features-list">
+                    <li><i class="fas fa-bolt"></i> <span><span class="highlight">极速下发</span>，上架各大市场无忧</span></li>
+                    <li><i class="fas fa-star"></i> <span>包建站审核模板、写合规承诺书</span></li>
+                    <li><i class="fas fa-star"></i> <span>支持双端资质一并提交下发</span></li>
+                    <li><i class="fas fa-star"></i> <span>管局动态实时同步与风险预警</span></li>
+                </ul>
+                <button class="action-btn" onclick="copyContact('1284539794')">
+                    <span><i class="fab fa-qq" style="margin-right: 5px;"></i> 获取专属报价</span>
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">渠道招商代理</div>
+                    <div class="card-desc">一手渠道资源 · 高额返点</div>
+                </div>
+                <ul class="features-list">
+                    <li><i class="fas fa-bolt"></i> <span><span class="highlight">一手接入商</span>，拒绝中间层层加价</span></li>
+                    <li><i class="fas fa-check"></i> <span>全方位技术与合规资源支持</span></li>
+                    <li><i class="fas fa-check"></i> <span>专属大客户经理 7x24 响应</span></li>
+                    <li><i class="fas fa-check"></i> <span>高利润空间，合作共赢模式</span></li>
+                </ul>
+                <button class="action-btn" onclick="copyContact('1411388816')">
+                    <span><i class="fab fa-qq" style="margin-right: 5px;"></i> 获取渠道报价</span>
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="feature-banner">
+            <p>
+                <span class="highlight">要速度有速度，要质量有质量</span> · 
+                全程省心0操作 · 
+                <span class="highlight">合规稳当不掉</span>
+                <i class="fas fa-shield-check" style="margin-left: 1rem; color: #ffda7a;"></i>
+            </p>
+        </div>
+
+        <div class="support-section">
+            <div class="support-badges">
+                <span class="support-badge"><i class="fas fa-edit"></i> 包资料录入</span>
+                <span class="support-badge"><i class="fas fa-folder-open"></i> 包建审核模板</span>
+                <span class="support-badge"><i class="fas fa-headset"></i> 专属客服一对一</span>
+            </div>
+
+            <div class="cta-button-container">
+                <button class="cta-button" onclick="copyContact('70933207')">
+                    【立即联系客服】获取专属备案方案 <i class="far fa-copy" style="margin-left: 0.5rem;"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-pills">
+            <div class="footer-pill dashed">
+                <i class="fas fa-info-circle" style="color: #8f8fb1;"></i> 郑重承诺：我们是 <span class="highlight" style="color:#ffd966; font-weight:bold;">一手接入商渠道</span>，非市面层层转包代理。确保数据直达管局，源头保障您的数字资产安全。
+            </div>
+        </div>
+
+    </div>
+
+    <div id="toast">✅ 客服 QQ 已复制</div>
+
+    <script>
+        function copyContact(text) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            toast.innerText = "✅ QQ: " + text + " 已复制，请前往添加好友！";
+            
+            setTimeout(function(){ 
+                toast.className = toast.className.replace("show", ""); 
+            }, 3000);
+        }
+    </script>
+    
+    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+    <script>LA.init({id:"3PcfVWcFYQ94gM0C",ck:"3PcfVWcFYQ94gM0C"})</script>
+</body>
+</html>
